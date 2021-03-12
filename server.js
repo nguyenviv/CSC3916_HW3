@@ -87,12 +87,15 @@ router.post('/signin', function (req, res) {
 });
 
 router.route('/movies')
-    var movie = new Movie();
-    movie.title = req.body.movie;
-    movie.
 
     .delete(authController.isAuthenticated, function(req, res) {
-            console.log(req.body);
+        var movie = new Movie();
+        movie.title = req.body.title;
+        movie.yearReleased = req.body.yearReleased;
+        movie.genre = req.body.genre;
+        movie.actor = [req.body.actorName(), req.body.characterName()]
+
+        console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
@@ -102,8 +105,15 @@ router.route('/movies')
             res.json(o);
         }
     )
+
     .put(authJwtController.isAuthenticated, function(req, res) {
-            console.log(req.body);
+        var movie = new Movie();
+        movie.title = req.body.title;
+        movie.yearReleased = req.body.yearReleased;
+        movie.genre = req.body.genre;
+        movie.actor = [req.body.actorName(), req.body.characterName()]
+
+        console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
@@ -114,7 +124,13 @@ router.route('/movies')
         }
     )
     .get(function (req, res) {
-            console.log(req.body);
+        var movie = new Movie();
+        movie.title = req.body.title;
+        movie.yearReleased = req.body.yearReleased;
+        movie.genre = req.body.genre;
+        movie.actor = [req.body.actorName(), req.body.characterName()]
+
+        console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
@@ -125,7 +141,13 @@ router.route('/movies')
         }
     )
     .post(function (req, res) {
-            console.log(req.body);
+        var movie = new Movie();
+        movie.title = req.body.title;
+        movie.yearReleased = req.body.yearReleased;
+        movie.genre = req.body.genre;
+        movie.actor = [req.body.actorName(), req.body.characterName()]
+
+        console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
