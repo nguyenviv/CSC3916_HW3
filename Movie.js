@@ -22,7 +22,7 @@ var MovieSchema = new Schema({
     actors: [{ actorName: String, characterName: String }]
 });
 
-//Get/Read movies
+/*//Get/Read movies
 MovieSchema.get('get', function (next){
     var movie = this;
 
@@ -44,7 +44,7 @@ MovieSchema.update('update', function (next){
 MovieSchema.delete('delete', function (next){
     var movie = this;
 
-});
+});*/
 
 //return the model to server
 module.exports = mongoose.model('Movie', MovieSchema);
