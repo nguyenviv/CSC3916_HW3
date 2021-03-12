@@ -106,7 +106,7 @@ router.route('/movies')
         }
     )
     //Add
-    .post(function (req, res) {
+    /*.post(function (req, res) {
         var movie = new Movie();
         movie.title = req.body.title;
         movie.yearReleased = req.body.yearReleased;
@@ -123,7 +123,37 @@ router.route('/movies')
 
             res.json({success: true, msg: 'Successfully created new movie.'})
         }
-    )
+    )*/
+
+    .post( authJwtController.isAuthenticated, function (req, res) {
+        if (!req.body.Title || !req.body.Genre || !req.body.Year || !req.body.Actors && req.body.Actors.length) {
+            res.json({success: false, msg: 'Please pass Movie Title, Year released, Genre, and Actors(Character Name and Actor Name)'});
+        }
+        else {
+            if(req.body.Actors.length < 3) {
+                res.json({ success: false, message: 'Please include at least Three Actors!'});
+            }
+            else {
+                var movie = new Movie(req, res);
+                movie.Title = req.body.Title;
+                movie.Year = req.body.Year;
+                movie.Genre = req.body.Genre;
+                movie.Actors= req.body.Actors;
+
+                movie.save(function(err) {
+                    if (err) {
+                        if (err.code == 11000)
+                            return res.json({ success: false, message: 'A Movie with that Title already exists!'});
+                        else
+                            return res.send(err);
+                    }
+
+                    res.json({ message: 'Movie Successfully created!' });
+                });
+            }
+        }
+    })
+
     //Update
    .put(authJwtController.isAuthenticated, function(req, res) {
         var movie = new Movie();

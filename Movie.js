@@ -3,9 +3,11 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 
 mongoose.Promise = global.Promise;
+
 //connect method
+//mongoose.connect(process.env.DB, { useNewUrlParser: true });
 try {
-    mongoose.connect( process.env.DB, {useNewUrlParser: true, useUnifiedTopology: true}, () =>
+    mongoose.connect( process.env.DB, {useNewUrlParser: true}, () =>
         console.log("connected"));
 }catch (error) {
     console.log("could not connect");
@@ -23,11 +25,11 @@ var MovieSchema = new Schema({
 //Get/Read movies
 MovieSchema.get('get', function (next){
     var movie = this;
-    movie.push()
+
 });
 
 //Post/Create movies
-MovieSchema.pre('save', function(next) {
+MovieSchema.save('save', function(next) {
     var movie = this;
     next();
 });
@@ -35,11 +37,13 @@ MovieSchema.pre('save', function(next) {
 //Put/Update movies
 MovieSchema.update('update', function (next){
     var movie = this;
+
 });
 
 //Delete movies
 MovieSchema.delete('delete', function (next){
     var movie = this;
+
 });
 
 //return the model to server
