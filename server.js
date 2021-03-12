@@ -87,31 +87,50 @@ router.post('/signin', function (req, res) {
 });
 
 router.route('/movies')
+    // Display
+    .get(function (req, res) {
+            var movie = new Movie();
+            movie.title = req.body.title;
+            movie.yearReleased = req.body.yearReleased;
+            movie.genre = req.body.genre;
+            movie.actor = [req.body.actorName, req.body.characterName]
 
-    .delete(authController.isAuthenticated, function(req, res) {
-        var movie = new Movie();
-        movie.title = req.body.title;
-        movie.yearReleased = req.body.yearReleased;
-        movie.genre = req.body.genre;
-        movie.actor = [req.body.actorName(), req.body.characterName()]
-
-        console.log(req.body);
+            console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
             }
             var o = getJSONObjectForMovieRequirement(req);
-            o.msg = "movie deleted";
+            o.msg = "GET movies";
             res.json(o);
         }
     )
-
-    .put(authJwtController.isAuthenticated, function(req, res) {
+    //Add
+    .post(function (req, res) {
         var movie = new Movie();
         movie.title = req.body.title;
         movie.yearReleased = req.body.yearReleased;
         movie.genre = req.body.genre;
-        movie.actor = [req.body.actorName(), req.body.characterName()]
+        movie.actor = [req.body.actorName, req.body.characterName]
+
+        movie.save(function(err){
+            if (err) {
+                if (err.code == 11000)
+                    return res.json({ success: false, message: 'Movie already exists.'});
+                else
+                    return res.json(err);
+            }
+
+            res.json({success: true, msg: 'Successfully created new movie.'})
+        }
+    )
+    //Update
+   .put(authJwtController.isAuthenticated, function(req, res) {
+        var movie = new Movie();
+        movie.title = req.body.title;
+        movie.yearReleased = req.body.yearReleased;
+        movie.genre = req.body.genre;
+        movie.actor = [req.body.actorName, req.body.characterName]
 
         console.log(req.body);
             res = res.status(200);
@@ -123,39 +142,24 @@ router.route('/movies')
             res.json(o);
         }
     )
-    .get(function (req, res) {
-        var movie = new Movie();
-        movie.title = req.body.title;
-        movie.yearReleased = req.body.yearReleased;
-        movie.genre = req.body.genre;
-        movie.actor = [req.body.actorName(), req.body.characterName()]
+    //Delete
+    .delete(authController.isAuthenticated, function(req, res) {
+            var movie = new Movie();
+            movie.title = req.body.title;
+            movie.yearReleased = req.body.yearReleased;
+            movie.genre = req.body.genre;
+            movie.actor = [req.body.actorName(), req.body.characterName()]
 
-        console.log(req.body);
+            console.log(req.body);
             res = res.status(200);
             if (req.get('Content-Type')) {
                 res = res.type(req.get('Content-Type'));
             }
             var o = getJSONObjectForMovieRequirement(req);
-            o.msg = "GET movies";
+            o.msg = "movie deleted";
             res.json(o);
         }
-    )
-    .post(function (req, res) {
-        var movie = new Movie();
-        movie.title = req.body.title;
-        movie.yearReleased = req.body.yearReleased;
-        movie.genre = req.body.genre;
-        movie.actor = [req.body.actorName(), req.body.characterName()]
 
-        console.log(req.body);
-            res = res.status(200);
-            if (req.get('Content-Type')) {
-                res = res.type(req.get('Content-Type'));
-            }
-            var o = getJSONObjectForMovieRequirement(req);
-            o.msg = "movie saved";
-            res.json(o);
-        }
     );
 
 app.use('/', router);

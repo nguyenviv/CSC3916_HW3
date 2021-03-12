@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 
 mongoose.Promise = global.Promise;
-
 //connect method
 try {
     mongoose.connect( process.env.DB, {useNewUrlParser: true, useUnifiedTopology: true}, () =>
@@ -21,32 +20,27 @@ var MovieSchema = new Schema({
     actors: [{ actorName: String, characterName: String }]
 });
 
-MovieSchema.pre('save', function(next) {
+//Get/Read movies
+MovieSchema.get('get', function (next){
     var movie = this;
-
-    //hash the password
-    if (!movie.contain(movie.actors)) return next();
-
-    bcrypt.hash(movie.title, movie.yearReleased, movie.genre, movie.actors, function(err, hash) {
-        if (err) return next(err);
-
-        //save movie
-        movie.title = hash;
-        movie.yearReleased = hash;
-        movie.genre = hash;
-        movie.actors = hash;
-
-        next();
-    });
+    movie.push()
 });
 
-MovieSchema.methods.comparePassword = function (password, callback) {
+//Post/Create movies
+MovieSchema.pre('save', function(next) {
     var movie = this;
+    next();
+});
 
-    bcrypt.compare(password, user.password, function(err, isMatch) {
-        callback(isMatch);
-    })
-}
+//Put/Update movies
+MovieSchema.update('update', function (next){
+    var movie = this;
+});
+
+//Delete movies
+MovieSchema.delete('delete', function (next){
+    var movie = this;
+});
 
 //return the model to server
 module.exports = mongoose.model('Movie', MovieSchema);
