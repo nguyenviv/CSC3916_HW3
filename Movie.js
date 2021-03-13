@@ -19,9 +19,15 @@ var MovieSchema = new Schema({
     title: { type: String, required: true, index: { unique: true }},
     yearReleased: {type: Number, min:[1900, 'Must be greater than 1899'], max:[2100,'Must be less than 2100'], required: true },
     genre: { type:String, required: true},
-    actors: [{ actorName: String, characterName: String, required: true }]
+    actors: [{ actorName: String, characterName: String }]
 });
 
+MovieSchema.find(function (err, movies){
+    if (err) res.status(500).send(err);
+    //return movies
+    res.json(movies);
+
+});
 /*//Get/Read movies
 MovieSchema.get('get', function (next){
     var movie = this;

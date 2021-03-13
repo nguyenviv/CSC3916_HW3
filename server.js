@@ -90,8 +90,8 @@ router.route('/movies')
 
     //Retrieve movies
     .get(function (req, res) {
-            var movie = new Movie(req, res);
-            movie.find({}, function (err,) {
+            var movie = new Movie();
+            Movie.find({}, function (err,) {
                 if (err) throw err;
                 else
                     console.log(movie);
@@ -111,7 +111,7 @@ router.route('/movies')
                 res.json({ success: false, message: 'Please include at least three actors.'});
             }
             else {
-                var movie = new Movie(req, res);
+                var movie = new Movie();
                 movie.Title = req.body.Title;
                 movie.Year = req.body.Year;
                 movie.Genre = req.body.Genre;
@@ -132,14 +132,14 @@ router.route('/movies')
 
     //Update movies
    .put(authJwtController.isAuthenticated, function(req, res) {
-       var movie = new Movie(req, res);
+       var movie = new Movie();
        movie.Title = req.body.Title;
        movie.Year = req.body.Year;
        movie.Genre = req.body.Genre;
        movie.Actors= req.body.Actors;
 
-       if (movie.find(req.body.Title, function (err) {
-           movie.save(function (err) {
+       if (Movie.find({Title: movie.Title}, function (err, m) {
+           movie.save(function (err, m) {
                if (err) throw err;
                else {
                    res = res.status(200);
@@ -147,17 +147,24 @@ router.route('/movies')
                }
            });
        }));
+
+       /*movie.find(function (err, movies){
+           if (err) res.status(500).send(err);
+           //return movies
+           res.json(movies);
+
+       });*/
    })
 
     //Delete movies
     .delete(authController.isAuthenticated, function(req, res) {
-        var movie = new Movie(req, res);
+        var movie = new Movie();
         movie.Title = req.body.Title;
         movie.Year = req.body.Year;
         movie.Genre = req.body.Genre;
         movie.Actors= req.body.Actors;
 
-        if (movie.find(req.body.Title, function (err) {
+        if (Movie.find(req.body.Title, function (err) {
             movie.remove(function (err) {
                 if (err) throw err;
                 else {
