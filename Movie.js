@@ -22,12 +22,12 @@ var MovieSchema = new Schema({
     actors: [{ actorName: String, characterName: String }]
 });
 
-MovieSchema.find(function (err, movies){
+/*MovieSchema.find(function (err, movies){
     if (err) res.status(500).send(err);
     //return movies
     res.json(movies);
 
-});
+});*/
 /*//Get/Read movies
 MovieSchema.get('get', function (next){
     var movie = this;

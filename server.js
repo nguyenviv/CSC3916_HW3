@@ -90,6 +90,16 @@ router.route('/movies')
 
     //Retrieve movies
     .get(function (req, res) {
+            Movie.find({}, function (err,movies) {
+                if (err) throw err;
+                else
+                    console.log(movies);
+                res = res.status(200);
+                res.json({success: true, msg: 'GET movies.'});
+            });
+        }
+    )
+    /*.get(function (req, res) {
             var movie = new Movie();
             Movie.find({}, function (err,) {
                 if (err) throw err;
@@ -99,7 +109,7 @@ router.route('/movies')
                     res.json({success: true, msg: 'GET movies.'});
             });
         }
-    )
+    )*/
 
     //Save movies
     .post( authJwtController.isAuthenticated, function (req, res) {
