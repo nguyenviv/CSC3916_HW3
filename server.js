@@ -110,13 +110,13 @@ router.route('/movies')
                 res.json({ success: false, message: 'Please include at least three actors.'});
             }
             else {
-                /*var movie = new Movie();
-                movie.Title = req.body.Title;
-                movie.Year = req.body.Year;
-                movie.Genre = req.body.Genre;
-                movie.Actors= req.body.Actors;*/
+                var movie = new Movie();
+                movie.title = req.body.title;
+                movie.yearReleased = req.body.yearReleased;
+                movie.genre = req.body.genre;
+                movie.actors= req.body.actors;
 
-                Movie.save(function(err, movies) {
+                movie.save(function(err, movies) {
                     if (err) {
                         if (err.code == 11000)
                             return res.json({ success: false, message: 'A movie with that title already exists.'});
@@ -131,42 +131,52 @@ router.route('/movies')
 
     //Update movies
    .put(authJwtController.isAuthenticated, function(req, res) {
-       /*var movie = new Movie();
-       movie.Title = req.body.Title;
-       movie.Year = req.body.Year;
-       movie.Genre = req.body.Genre;
-       movie.Actors= req.body.Actors;*/
+       if (!req.body.title) {
+           res.json({success: false, msg: 'Please pass a Movie Title to update.'});
+       } else {
+           var movie = new Movie();
+           movie.title = req.body.title;
+           movie.yearReleased = req.body.yearReleased;
+           movie.genre = req.body.genre;
+           movie.actors = req.body.actors;
 
-       if (Movie.find(req.body.Title, function (err, movies) {
-           Movie.save(function (err, movies) {
+           Movie.find(req.body.title, function (err, movies) {
                if (err) throw err;
                else {
-                   console.log(movies);
-                   res = res.status(200);
-                   res.json({success: true, msg: 'Movie successfully updated.'});
+
+                   movie.save(function (err, movies) {
+                       console.log(movies);
+                       res = res.status(200);
+                       res.json({success: true, msg: 'Movie successfully updated.'});
+                   })
                }
-           });
-       }));
+           })
+       }
    })
 
     //Delete movies
     .delete(authController.isAuthenticated, function(req, res) {
-        /*var movie = new Movie();
-        movie.Title = req.body.Title;
-        movie.Year = req.body.Year;
-        movie.Genre = req.body.Genre;
-        movie.Actors= req.body.Actors;*/
 
-        if (Movie.find(req.body.Title, function (err, movies) {
-            Movie.remove(function (err, movies) {
+        if (!req.body.title) {
+            res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
+        } else {
+            var movie = new Movie();
+            movie.title = req.body.title;
+            movie.yearReleased = req.body.yearReleased;
+            movie.genre = req.body.genre;
+            movie.actors = req.body.actors;
+
+            Movie.find(req.body.title, function (err, movies) {
                 if (err) throw err;
                 else {
-                    console.log(movies);
-                    res = res.status(200);
-                    res.json({success: true, msg: 'Movie successfully removed.'});
+                    movie.remove(function (err, movies) {
+                        console.log(movies);
+                        res = res.status(200);
+                        res.json({success: true, msg: 'Movie successfully removed.'});
+                    })
                 }
-            });
-        }));
+            })
+        }
     });
 
 

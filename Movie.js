@@ -22,35 +22,5 @@ var MovieSchema = new Schema({
     actors: [{ actorName: String, characterName: String }]
 });
 
-/*MovieSchema.find(function (err, movies){
-    if (err) res.status(500).send(err);
-    //return movies
-    res.json(movies);
-
-});*/
-/*//Get/Read movies
-MovieSchema.get('get', function (next){
-    var movie = this;
-
-});
-
-//Post/Create movies
-MovieSchema.save('save', function(next) {
-    var movie = this;
-    next();
-});
-
-//Put/Update movies
-MovieSchema.update('update', function (next){
-    var movie = this;
-
-});
-
-//Delete movies
-MovieSchema.delete('delete', function (next){
-    var movie = this;
-
-});*/
-
 //return the model to server
 module.exports = mongoose.model('Movie', MovieSchema);
