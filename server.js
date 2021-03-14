@@ -117,7 +117,7 @@ router.route('/movies')
                 movie.actorName= req.body.actors[0].actorName;
                 movie.characterName = req.body.actors[1].characterName;
 
-                Movie.save(function(err, movies) {
+                movie.save(function(err, movies) {
                     if (err) {
                         if (err.code == 11000)
                             return res.json({ success: false, message: 'A movie with that title already exists.'});
