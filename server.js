@@ -142,11 +142,10 @@ router.route('/movies')
            movie.actorName= req.body.actors[0].actorName;
            movie.characterName = req.body.actors[1].characterName;
 
-           movie.find(req.body.title, function (err, movies) {
+           movie.find(req.body.title, function (err, movie) {
                if (err) throw err;
                else {
-
-                   movie.save(function (err, movies) {
+                   movie.save(function (err, movie) {
                        console.log(movies);
                        res = res.status(200);
                        res.json({success: true, msg: 'Movie successfully updated.'});
@@ -158,7 +157,6 @@ router.route('/movies')
 
     //Delete movies
     .delete(authJwtController.isAuthenticated, function(req, res) {
-
         if (!req.body.title) {
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
         } else {
@@ -169,10 +167,10 @@ router.route('/movies')
             movie.actorName= req.body.actors[0].actorName;
             movie.characterName = req.body.actors[1].characterName;
 
-            movie.find(req.body.title, function (err, movies) {
+            movie.find(req.body.title, function (err, movie) {
                 if (err) throw err;
                 else {
-                    movie.remove(function (err, movies) {
+                    movie.remove(function (err, movie) {
                         console.log(movies);
                         res = res.status(200);
                         res.json({success: true, msg: 'Movie successfully removed.'});
