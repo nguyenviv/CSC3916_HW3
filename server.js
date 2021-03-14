@@ -135,16 +135,17 @@ router.route('/movies')
        if (!req.body.title) {
            res.json({success: false, msg: 'Please pass a Movie Title to update.'});
        } else {
-           var movie = new Movie();
-           movie.title = req.body.title;
-           movie.yearReleased = req.body.yearReleased;
-           movie.genre = req.body.genre;
-           movie.actorName= req.body.actors[0].actorName;
-           movie.characterName = req.body.actors[1].characterName;
 
            Movie.find(req.body.title, function (err, movie) {
                if (err) throw err;
                else {
+                   var movie = new Movie();
+                   movie.title = req.body.title;
+                   movie.yearReleased = req.body.yearReleased;
+                   movie.genre = req.body.genre;
+                   movie.actorName= req.body.actors[0].actorName;
+                   movie.characterName = req.body.actors[1].characterName;
+
                    movie.save(function (err, movies) {
                        console.log(movies);
                        res = res.status(200);
@@ -160,16 +161,17 @@ router.route('/movies')
         if (!req.body.title) {
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
         } else {
-            var movie = new Movie();
-            movie.title = req.body.title;
-            movie.yearReleased = req.body.yearReleased;
-            movie.genre = req.body.genre;
-            movie.actorName= req.body.actors[0].actorName;
-            movie.characterName = req.body.actors[1].characterName;
 
             Movie.find(req.body.title, function (err, movies) {
                 if (err) throw err;
                 else {
+                    var movie = new Movie();
+                    movie.title = req.body.title;
+                    movie.yearReleased = req.body.yearReleased;
+                    movie.genre = req.body.genre;
+                    movie.actorName= req.body.actors[0].actorName;
+                    movie.characterName = req.body.actors[1].characterName;
+
                     movie.remove(function (err, movies) {
                         console.log(movies);
                         res = res.status(200);
