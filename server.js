@@ -173,10 +173,11 @@ router.route('/movies')
 
                     movie.remove(function (err) {
                         if (err) throw err;
-                        else
-                        console.log(movies);
+                        //else
+                        //console.log(movies);
                         res = res.status(200);
-                        res.json({success: true, msg: 'Movie successfully removed.'});
+                        //res.json({success: true, msg: 'Movie successfully removed.'});
+                        console.log('Movie sucessfully deleted.');
                     })
                 }
             })
