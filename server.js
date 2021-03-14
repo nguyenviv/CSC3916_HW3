@@ -114,8 +114,7 @@ router.route('/movies')
                 movie.title = req.body.title;
                 movie.yearReleased = req.body.yearReleased;
                 movie.genre = req.body.genre;
-                movie.actorName= req.body.actors[0].actorName;
-                movie.characterName = req.body.actors[1].characterName;
+                movie.actors = req.body.actors;
 
                 movie.save(function(err, movies) {
                     if (err) {
@@ -136,17 +135,17 @@ router.route('/movies')
            res.json({success: false, msg: 'Please pass a Movie Title to update.'});
        } else {
 
-           Movie.find(req.body.title, function (err, movie) {
+           Movie.find({title: req.body.title}, function (err, movies) {
                if (err) throw err;
                else {
                    var movie = new Movie();
                    movie.title = req.body.title;
                    movie.yearReleased = req.body.yearReleased;
                    movie.genre = req.body.genre;
-                   movie.actorName= req.body.actors[0].actorName;
-                   movie.characterName = req.body.actors[1].characterName;
+                   movie.actors = req.body.actors;
 
                    movie.save(function (err, movies) {
+                       if (err) throw err;
                        console.log(movies);
                        res = res.status(200);
                        res.json({success: true, msg: 'Movie successfully updated.'});
@@ -162,17 +161,17 @@ router.route('/movies')
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
         } else {
 
-            Movie.find(req.body.title, function (err, movies) {
+            Movie.find({title: req.body.title}, function (err, movies) {
                 if (err) throw err;
                 else {
                     var movie = new Movie();
                     movie.title = req.body.title;
                     movie.yearReleased = req.body.yearReleased;
                     movie.genre = req.body.genre;
-                    movie.actorName= req.body.actors[0].actorName;
-                    movie.characterName = req.body.actors[1].characterName;
+                    movie.actors = req.body.actors;
 
                     movie.remove(function (err, movies) {
+                        if (err) throw err;
                         console.log(movies);
                         res = res.status(200);
                         res.json({success: true, msg: 'Movie successfully removed.'});
