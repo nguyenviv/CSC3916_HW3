@@ -117,7 +117,7 @@ router.route('/movies')
                 movie.actorName= req.body.actors[0].actorName;
                 movie.characterName = req.body.actors[1].characterName;
 
-                movie.save(function(err, movies) {
+                Movie.save(function(err, movies) {
                     if (err) {
                         if (err.code == 11000)
                             return res.json({ success: false, message: 'A movie with that title already exists.'});
@@ -167,10 +167,10 @@ router.route('/movies')
             movie.actorName= req.body.actors[0].actorName;
             movie.characterName = req.body.actors[1].characterName;
 
-            movie.find(req.body.title, function (err, movie) {
+            Movie.find(req.body.title, function (err, movies) {
                 if (err) throw err;
                 else {
-                    movie.remove(function (err, movie) {
+                    Movie.remove(function (err, movies) {
                         console.log(movies);
                         res = res.status(200);
                         res.json({success: true, msg: 'Movie successfully removed.'});
