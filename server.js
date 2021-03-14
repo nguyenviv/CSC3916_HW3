@@ -144,7 +144,7 @@ router.route('/movies')
                    movie.genre = req.body.genre;
                    movie.actors = req.body.actors;
 
-                   movie.save(function (err, movies) {
+                   movie.save(function (err) {
                        if (err) throw err;
                        else
                        console.log(movies);
