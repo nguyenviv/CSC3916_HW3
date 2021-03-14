@@ -113,7 +113,7 @@ router.route('/movies')
 
     //Save movies
     .post( authJwtController.isAuthenticated, function (req, res) {
-        if (!req.body.Title || !req.body.Genre || !req.body.Year || !(req.body.Actors && req.body.Actors.length)) {
+        if (!req.body.Title || !req.body.Genre || !req.body.Year || !(req.body.Actors.actorName && req.body.Actors.characterName)) {
             res.json({success: false, msg: 'Please pass Movie Title, Year released, Genre, and Actors(Actor Name and Character Name)'});
         }
         else {
