@@ -162,7 +162,7 @@ router.route('/movies')
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
         } else {
 
-            Movie.find({title: req.body.title}, function (err, movies) {
+            Movie.find({title: req.body.title}, function (err, movie) {
                 if (err) throw err;
                 //else {
                     /*var movie = new Movie();
