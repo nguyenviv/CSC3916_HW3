@@ -144,7 +144,7 @@ router.route('/movies')
                    movie.genre = req.body.genre;
                    movie.actors = req.body.actors;
 
-                   movie.save(function (err, movies) {
+                   movie.save(function (err) {
                        if (err) throw err;
                        console.log(movies);
                        res = res.status(200);
@@ -170,7 +170,7 @@ router.route('/movies')
                     movie.genre = req.body.genre;
                     movie.actors = req.body.actors;
 
-                    movie.remove(function (err, movies) {
+                    movie.remove(function (err) {
                         if (err) throw err;
                         console.log(movies);
                         res = res.status(200);
