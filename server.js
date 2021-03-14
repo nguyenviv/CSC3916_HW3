@@ -142,10 +142,10 @@ router.route('/movies')
            movie.actorName= req.body.actors[0].actorName;
            movie.characterName = req.body.actors[1].characterName;
 
-           movie.find(req.body.title, function (err, movie) {
+           Movie.find(req.body.title, function (err, movie) {
                if (err) throw err;
                else {
-                   movie.save(function (err, movie) {
+                   movie.save(function (err, movies) {
                        console.log(movies);
                        res = res.status(200);
                        res.json({success: true, msg: 'Movie successfully updated.'});
@@ -170,7 +170,7 @@ router.route('/movies')
             Movie.find(req.body.title, function (err, movies) {
                 if (err) throw err;
                 else {
-                    Movie.remove(function (err, movies) {
+                    movie.remove(function (err, movies) {
                         console.log(movies);
                         res = res.status(200);
                         res.json({success: true, msg: 'Movie successfully removed.'});
