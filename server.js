@@ -102,11 +102,11 @@ router.route('/movies')
 
     //Save movies
     .post( authJwtController.isAuthenticated, function (req, res) {
-        if (!req.body.Title || !req.body.Genre || !req.body.Year || !(req.body.Actors.actorName && req.body.Actors.characterName)) {
+        if (!req.body.title || !req.body.genre || !req.body.year || !(req.body.actors.actorName && req.body.actors.characterName)) {
             res.json({success: false, msg: 'Please pass Movie Title, Year released, Genre, and Actors(Actor Name and Character Name)'});
         }
         else {
-            if(req.body.Actors.length < 3) {
+            if(req.body.actors.length < 3) {
                 res.json({ success: false, message: 'Please include at least three actors.'});
             }
             else {
