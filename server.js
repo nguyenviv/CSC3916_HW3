@@ -102,7 +102,7 @@ router.route('/movies')
 
     //Save movies
     .post( authJwtController.isAuthenticated, function (req, res) {
-        if (!req.body.title || !req.body.genre || !req.body.year || !(req.body.actors.actorName && req.body.actors.characterName)) {
+        if (!req.body.title || !req.body.genre || !req.body.yearReleased) {
             res.json({success: false, msg: 'Please pass Movie Title, Year released, Genre, and Actors(Actor Name and Character Name)'});
         }
         else {
@@ -114,7 +114,8 @@ router.route('/movies')
                 movie.title = req.body.title;
                 movie.yearReleased = req.body.yearReleased;
                 movie.genre = req.body.genre;
-                movie.actors= req.body.actors;
+                movie.actorName= req.body.actors[0].actorName;
+                movie.characterName = req.body.actors[1].characterName;
 
                 movie.save(function(err, movies) {
                     if (err) {
@@ -138,7 +139,8 @@ router.route('/movies')
            movie.title = req.body.title;
            movie.yearReleased = req.body.yearReleased;
            movie.genre = req.body.genre;
-           movie.actors = req.body.actors;
+           movie.actorName= req.body.actors[0].actorName;
+           movie.characterName = req.body.actors[1].characterName;
 
            Movie.find(req.body.title, function (err, movies) {
                if (err) throw err;
@@ -164,7 +166,8 @@ router.route('/movies')
             movie.title = req.body.title;
             movie.yearReleased = req.body.yearReleased;
             movie.genre = req.body.genre;
-            movie.actors = req.body.actors;
+            movie.actorName= req.body.actors[0].actorName;
+            movie.characterName = req.body.actors[1].characterName;
 
             Movie.find(req.body.title, function (err, movies) {
                 if (err) throw err;
