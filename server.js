@@ -142,7 +142,7 @@ router.route('/movies')
            movie.actorName= req.body.actors[0].actorName;
            movie.characterName = req.body.actors[1].characterName;
 
-           Movie.find(req.body.title, function (err, movies) {
+           movie.find(req.body.title, function (err, movies) {
                if (err) throw err;
                else {
 
@@ -169,7 +169,7 @@ router.route('/movies')
             movie.actorName= req.body.actors[0].actorName;
             movie.characterName = req.body.actors[1].characterName;
 
-            Movie.find(req.body.title, function (err, movies) {
+            movie.find(req.body.title, function (err, movies) {
                 if (err) throw err;
                 else {
                     movie.remove(function (err, movies) {
