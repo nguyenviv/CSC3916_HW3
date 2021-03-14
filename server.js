@@ -160,25 +160,25 @@ router.route('/movies')
     .delete(authJwtController.isAuthenticated, function(req, res) {
         if (!req.body.title) {
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
-        } else {
-
+        }
+        else {
             Movie.findOneAndRemove({title: req.body.title}, function (err) {
                 if (err) throw err;
                 //else {
-                    /*var movie = new Movie();
-                    movie.title = req.body.title;
-                    movie.yearReleased = req.body.yearReleased;
-                    movie.genre = req.body.genre;
-                    movie.actors = req.body.actors;*/
+                /*var movie = new Movie();
+                movie.title = req.body.title;
+                movie.yearReleased = req.body.yearReleased;
+                movie.genre = req.body.genre;
+                movie.actors = req.body.actors;*/
 
-                    //movie.remove(function (err) {
-                        //if (err) throw err;
-                        //else
-                        //console.log(movies);
-                        //res = res.status(200);
-                        //res.json({success: true, msg: 'Movie successfully removed.'});
-                        console.log('Movie sucessfully deleted.');
-                    })
+                //movie.remove(function (err) {
+                //if (err) throw err;
+                //else
+                //console.log(movies);
+                //res = res.status(200);
+                //res.json({success: true, msg: 'Movie successfully removed.'});
+                console.log('Movie successfully deleted.');
+            })
                 //}
             //})
         }
