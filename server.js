@@ -157,7 +157,7 @@ router.route('/movies')
    })
 
     //Delete movies
-    .delete(authController.isAuthenticated, function(req, res) {
+    .delete(authJwtController.isAuthenticated, function(req, res) {
 
         if (!req.body.title) {
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
