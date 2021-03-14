@@ -164,7 +164,7 @@ router.route('/movies')
 
             Movie.find({title: req.body.title}, function (err, movies) {
                 if (err) throw err;
-                else {
+                //else {
                     /*var movie = new Movie();
                     movie.title = req.body.title;
                     movie.yearReleased = req.body.yearReleased;
@@ -179,7 +179,7 @@ router.route('/movies')
                         //res.json({success: true, msg: 'Movie successfully removed.'});
                         console.log('Movie sucessfully deleted.');
                     })
-                }
+                //}
             })
         }
     });
