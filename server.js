@@ -134,20 +134,10 @@ router.route('/movies')
        if (!req.body.title) {
            res.json({success: false, msg: 'Please pass a Movie Title to update.'});
        } else {
-           Movie.findOneAndUpdate({title: req.body.title, function(err, movies){
-                   if (err) throw err;
-                   else {
-                       var movie = new Movie();
-                       movie.title = req.body.title;
-                       movie.yearReleased = req.body.yearReleased;
-                       movie.genre = req.body.genre;
-                       movie.actors = req.body.actors;
-                       res.json({success: true, msg: 'Movie successfully updated.'});
-               }
-           /*Movie.find({title: req.body.title}, function (err, movies) {
+           Movie.find({title: req.body.title}, function (err, movies) {
                if (err) throw err;
                else {
-                   var movie = new Movie();
+                   /*var movie = new Movie();
                    movie.title = req.body.title;
                    movie.yearReleased = req.body.yearReleased;
                    movie.genre = req.body.genre;
@@ -159,9 +149,25 @@ router.route('/movies')
                        console.log(movies);
                        res = res.status(200);
                        res.json({success: true, msg: 'Movie successfully updated.'});
-                   })
+                   })*/
+                   var movie = new Movie();
+                   movie.title = req.body.title;
+                   movie.yearReleased = req.body.yearReleased;
+                   movie.genre = req.body.genre;
+                   movie.actors = req.body.actors;
+
+                   movie.save(function(err, movies) {
+                       /*if (err) {
+                           if (err.code == 11000)
+                               return res.json({ success: false, message: 'A movie with that title already exists.'});
+                           else
+                               return res.send(err);
+                       }*/
+                       if (err) throw err;
+                       res.json({ success: true, msg: 'Movie successfully updated.' });
+                   });
                }
-           })*/
+           })
        }
    })
 
