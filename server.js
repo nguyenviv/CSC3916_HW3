@@ -134,8 +134,17 @@ router.route('/movies')
        if (!req.body.title) {
            res.json({success: false, msg: 'Please pass a Movie Title to update.'});
        } else {
-
-           Movie.find({title: req.body.title}, function (err, movies) {
+           Movie.findOneAndUpdate({title: req.body.title, function(err, movies){
+                   if (err) throw err;
+                   else {
+                       var movie = new Movie();
+                       movie.title = req.body.title;
+                       movie.yearReleased = req.body.yearReleased;
+                       movie.genre = req.body.genre;
+                       movie.actors = req.body.actors;
+                       res.json({success: true, msg: 'Movie successfully updated.'});
+               }
+           /*Movie.find({title: req.body.title}, function (err, movies) {
                if (err) throw err;
                else {
                    var movie = new Movie();
@@ -152,7 +161,7 @@ router.route('/movies')
                        res.json({success: true, msg: 'Movie successfully updated.'});
                    })
                }
-           })
+           })*/
        }
    })
 
@@ -164,20 +173,7 @@ router.route('/movies')
         else {
             Movie.findOneAndRemove({title: req.body.title}, function (err) {
                 if (err) throw err;
-                //else {
-                /*var movie = new Movie();
-                movie.title = req.body.title;
-                movie.yearReleased = req.body.yearReleased;
-                movie.genre = req.body.genre;
-                movie.actors = req.body.actors;*/
-
-                //movie.remove(function (err) {
-                //if (err) throw err;
-                //else
-                //console.log(movies);
-                //res = res.status(200);
                 res.json({success: true, msg: 'Movie successfully deleted.'});
-                //console.log('Movie successfully deleted.');
             })
                 //}
             //})
