@@ -162,7 +162,7 @@ router.route('/movies')
             res.json({success: false, msg: 'Please pass a Movie Title to delete.'});
         }
         else {
-            Movie.findOneAndRemove({title: req.body.title}, function (err) {
+            Movie.find({title: req.body.title}, function (err) {
                 if (err) throw err;
                 //else {
                 /*var movie = new Movie();
@@ -171,16 +171,16 @@ router.route('/movies')
                 movie.genre = req.body.genre;
                 movie.actors = req.body.actors;*/
 
-                //movie.remove(function (err) {
-                //if (err) throw err;
+                movie.remove(function (err) {
+                if (err) throw err;
                 //else
-                //console.log(movies);
+                console.log(movies);
                 //res = res.status(200);
                 //res.json({success: true, msg: 'Movie successfully removed.'});
                 console.log('Movie successfully deleted.');
             })
                 //}
-            //})
+            })
         }
     });
 
