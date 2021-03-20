@@ -143,7 +143,7 @@ router.route('/movies')
                    movie.genre = req.body.genre;
                    movie.actors = req.body.actors;
 
-                   movie.save(function (err) {
+                   movie.update(function (err) {
                        if (err) throw err;
                        //else
                        //console.log(movies);
