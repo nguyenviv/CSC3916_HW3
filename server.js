@@ -138,12 +138,12 @@ router.route('/movies')
                if (err) throw err;
                else {
                    var movie = new Movie();
-                   movie.title = req.body.title;
+                   //movie.title = req.body.title;
                    movie.yearReleased = req.body.yearReleased;
                    movie.genre = req.body.genre;
                    movie.actors = req.body.actors;
 
-                   movie.save(function (err, movies) {
+                   movie.save(function (err) {
                        if (err) throw err;
                        //else
                        //console.log(movies);
