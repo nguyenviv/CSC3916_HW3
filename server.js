@@ -134,7 +134,7 @@ router.route('/movies')
        if (!req.body.title) {
            res.json({success: false, msg: 'Please pass a Movie Title to update.'});
        } else {
-           Movie.find({title: req.body.title}, function (err, movies) {
+           Movie.findOne({title: req.body.title}, function (err, movies) {
                if (err) throw err;
                else {
                    //var movie = new Movie();
