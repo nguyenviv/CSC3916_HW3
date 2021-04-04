@@ -137,14 +137,14 @@ router.route('/movies')
            Movie.find({title: req.body.title}, function (err, movies) {
                if (err) throw err;
                else {
-                   var movie = new Movie();
-                   movie.title = req.body.title;
-                   movie.yearReleased = req.body.yearReleased;
-                   movie.genre = req.body.genre;
-                   movie.actors = req.body.actors;
-                   movie.imageURL = req.body.imageURL;
+                   //var movie = new Movie();
+                   movies.title = req.body.title;
+                   movies.yearReleased = req.body.yearReleased;
+                   movies.genre = req.body.genre;
+                   movies.actors = req.body.actors;
+                   movies.imageURL = req.body.imageURL;
 
-                   movie.save(function (err, movies) {
+                   movies.save(function (err) {
                        if (err) throw err;
                        //else
                        //console.log(movies);
